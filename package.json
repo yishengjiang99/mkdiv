@@ -1,6 +1,6 @@
 {
   "name": "mkdiv",
-  "version": "2.0.7",
+  "version": "3.0.01",
   "description": "make HTML and SVG elements",
   "types": "mkdiv.d.ts",
   "main": "mkdiv.js",

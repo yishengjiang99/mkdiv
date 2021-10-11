@@ -45,32 +45,7 @@ export function mksvg(tag, attrs = {}, children = []) {
   charray.forEach((c) => el.append(c));
   return el;
 }
-export function logdiv(
-  infoPanel = mkdiv("pre", {
-    style:
-      "width:30em;min-height:299px;scroll-width:0;max-height:299px;overflow-y:scroll",
-  })
-) {
-  const logs = [];
-  let rx1 = "",
-    rx2 = "";
-  const stderr = (str) => {
-    rx1 = str;
-    rx2 = str;
-  };
-  const stdout = (log) => {
-    logs.push((performance.now() / 1e3).toFixed(3) + ": " + log);
-    if (logs.length > 100) logs.shift();
-    infoPanel.innerHTML = rx1 + "\n" + logs.join("\n");
-    infoPanel.scrollTop = infoPanel.scrollHeight;
-  };
-  return {
-    stderr,
-    stdout,
-    infoPanel,
-    errPanel: mkdiv("span"),
-  };
-}
+
 export function wrapDiv(div, tag, attrs = {}) {
   return mkdiv(tag, attrs, [div]);
 }
