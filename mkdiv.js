@@ -1,13 +1,13 @@
 export function mkdiv(type, attr, children) {
-  if (arguments.length == 1) return mkdiv(type, {}, "");
-  if (
-    arguments.length == 2 &&
-    (Array.isArray(attr) || typeof attr === "string")
-  ) {
-    return mkdiv(type, {}, arguments[1]);
-  }
-  if (arguments.length == 2) {
-    return mkdiv(type, arguments[1], []);
+  switch (arguments.length) {
+    case 1:
+      return mkdiv(type, {}, "");
+    case 2:
+      return Array.isArray(attr) || typeof attr === "string"
+        ? mkdiv(type, {}, attr)
+        : mkdiv(type, attr, []);
+    default:
+      break;
   }
   const div = document.createElement(type);
   for (const key in attr) {
@@ -22,13 +22,8 @@ export function mkdiv(type, attr, children) {
     typeof c == "string" ? (div.innerHTML += c) : div.append(c);
   });
   div.attachTo = function (parent) {
-    if (parent) parent.append(this);
-    return this;
-  };
-  div.wrapWith = function (tag) {
-    const parent = mkdiv(tag);
     parent.append(this);
-    return parent;
+    return this;
   };
   return div;
 }
@@ -51,4 +46,33 @@ export function wrapDiv(div, tag, attrs = {}) {
 }
 export function wrapList(divs, tag = "div") {
   return mkdiv(tag, {}, divs);
+}
+
+const logDivStyle =
+  "width:30em;min-height:299px;scroll-width:0;max-height:299px;overflow-y:scroll";
+export function logdiv() {
+  const logs = [],
+    errLogs = [],
+    infoPanel = mkdiv("pre", {
+      style: logDivStyle,
+    }),
+    errPanel = mkdiv("pre", {
+      style: logDivStyle,
+    });
+
+  const stdout = (log) => pushLog(log, logs, infoPanel);
+  const stderr = (log) => pushLog(log, errLogs, errPanel);
+
+  function pushLog(str, logArr, destination) {
+    logArr.push((performance.now() / 1e3).toFixed(3) + ": " + str);
+    if (logArr.length > 100) logArr.shift();
+    destination.innerHTML = logs.join("\n");
+    destination.scrollTop = destination.scrollHeight;
+  }
+  return {
+    stderr,
+    stdout,
+    infoPanel,
+    errPanel,
+  };
 }
