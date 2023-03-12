@@ -49,7 +49,7 @@ export function wrapList(divs, tag = "div") {
 }
 
 const logDivStyle =
-  "width:30em;min-height:299px;scroll-width:0;max-height:299px;overflow-y:scroll";
+  "width:40vwh;height:60vh;overflow-y:scroll";
 export function logdiv() {
   const logs = [],
     errLogs = [],
@@ -67,12 +67,15 @@ export function logdiv() {
     logArr.push((performance.now() / 1e3).toFixed(3) + ": " + str);
     if (logArr.length > 100) logArr.shift();
     destination.innerHTML = logs.join("\n");
-    destination.scrollTop = destination.scrollHeight;
-  }
+    requestAnimationFrame(()=>destination.scrollTop = destination.scrollHeight);
+  } 
   return {
     stderr,
     stdout,
     infoPanel,
     errPanel,
   };
+}
+export function mkdiv2({ tag, children, ...attr }) {
+  return mkdiv(tag, attr, children);
 }
