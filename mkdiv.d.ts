@@ -28,3 +28,9 @@ export declare function logdiv(div?: HTMLElement): {
   infoPanel: HTMLElement;
   errPanel: HTMLElement;
 };
+export declare type MkdivOption = {
+  tag: string;
+  attr?: Record<string, string | EventListenerObject>;
+  children: MkdivContent;
+};
+export declare function mkdiv2(options: MkdivOption): HTMLElement;
