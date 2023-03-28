@@ -3,9 +3,7 @@ export function mkdiv(type, attr, children) {
     case 1:
       return mkdiv(type, {}, "");
     case 2:
-      return Array.isArray(attr) || typeof attr === "string"
-        ? mkdiv(type, {}, attr)
-        : mkdiv(type, attr, []);
+      return Array.isArray(attr) || typeof attr === "string" ? mkdiv(type, {}, attr) : mkdiv(type, attr, []);
     default:
       break;
   }
@@ -22,7 +20,8 @@ export function mkdiv(type, attr, children) {
     typeof c == "string" ? (div.innerHTML += c) : div.append(c);
   });
   div.attachTo = function (parent) {
-    parent.append(this);
+    if (!parent) document.body.append(this);
+    else parent.append(this);
     return this;
   };
   return div;
@@ -48,8 +47,7 @@ export function wrapList(divs, tag = "div") {
   return mkdiv(tag, {}, divs);
 }
 
-const logDivStyle =
-  "width:40vwh;height:60vh;overflow-y:scroll";
+const logDivStyle = "width:40vwh;height:60vh;overflow-y:scroll";
 export function logdiv() {
   const logs = [],
     errLogs = [],
@@ -67,8 +65,8 @@ export function logdiv() {
     logArr.push((performance.now() / 1e3).toFixed(3) + ": " + str);
     if (logArr.length > 100) logArr.shift();
     destination.innerHTML = logs.join("\n");
-    requestAnimationFrame(()=>destination.scrollTop = destination.scrollHeight);
-  } 
+    requestAnimationFrame(() => (destination.scrollTop = destination.scrollHeight));
+  }
   return {
     stderr,
     stdout,
