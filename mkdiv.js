@@ -48,8 +48,7 @@ export function wrapList(divs, tag = "div") {
   return mkdiv(tag, {}, divs);
 }
 
-const logDivStyle =
-  "width:40vwh;height:60vh;overflow-y:scroll";
+const logDivStyle = "width:40vw;height:60vh;overflow-y:scroll";
 export function logdiv() {
   const logs = [],
     errLogs = [],
