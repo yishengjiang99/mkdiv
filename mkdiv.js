@@ -52,10 +52,7 @@ const logDivStyle = "width:40vw;max-height:30vh;overflow-y:scroll";
 export function logdiv() {
   const logs = [],
     errLogs = [],
-    infoPanel = mkdiv("pre", {
-      style: logDivStyle,
-    }),
-    errPanel = mkdiv("pre", {
+    infoPanel = mkdiv("textarea", {
       style: logDivStyle,
     });
 
@@ -72,7 +69,6 @@ export function logdiv() {
     stderr,
     stdout,
     infoPanel,
-    errPanel,
   };
 }
 export function mkdiv2({ tag, children, ...attr }) {
