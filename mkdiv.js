@@ -48,14 +48,15 @@ export function wrapList(divs, tag = "div") {
   return mkdiv(tag, {}, divs);
 }
 
-const logDivStyle = "width:40vw;max-height:30vh;overflow-y:scroll";
+const logDivStyle = "width:40vw;height:280px;overflow-y:scroll";
 export function logdiv() {
   const logs = [],
     errLogs = [],
-    infoPanel = mkdiv("pre", {
+    infoPanel = mkdiv("textarea", {
+      rows: 50,
       style: logDivStyle,
     }),
-    errPanel = mkdiv("pre", {
+    errPanel = mkdiv("textarea", {
       style: logDivStyle,
     });
 
@@ -66,7 +67,7 @@ export function logdiv() {
     logArr.push((performance.now() / 1e3).toFixed(3) + ": " + str);
     if (logArr.length > 100) logArr.shift();
     destination.innerHTML = logs.join("\n");
-    requestAnimationFrame(()=>destination.scrollTop = destination.scrollHeight);
+    // requestAnimationFrame(()=>destination.scrollTop = destination.scrollHeight);
   } 
   return {
     stderr,
