@@ -4,20 +4,21 @@ export declare type MkdivContent =
   | HTMLElement
   | (string | HTMLElement)[]
   | HTMLElement[];
+export declare type MkdivRetVal = HTMLElement & { attachTo: (div: HTMLElement) => void };
 export declare function mkdiv(
   type: string | keyof HTMLElementTagNameMap,
   attr?: Record<string, string | EventListenerObject>,
   children?: MkdivContent
-): HTMLElement;
+): MkdivRetVal;
 export declare function mkdiv(
   type: string | keyof HTMLElementTagNameMap,
   children?: MkdivContent
-): HTMLElement;
+): MkdivRetVal;
 export declare function mkdiv(
   type: string | keyof HTMLElementTagNameMap,
   attr?: Record<string, string | any>,
   children?: MkdivContent
-): HTMLElement;
+): MkdivRetVal
 export declare function mksvg(tag: any, attrs?: {}, children?: any[]): any;
 
 export declare function wrapDiv(div: any, tag: any, attrs?: {}): HTMLElement;
@@ -33,4 +34,4 @@ export declare type MkdivOption = {
   attr?: Record<string, string | EventListenerObject>;
   children: MkdivContent;
 };
-export declare function mkdiv2(options: MkdivOption): HTMLElement;
+export declare function mkdiv2(options: MkdivOption): MkdivContent;
